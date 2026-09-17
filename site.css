@@ -345,19 +345,19 @@ footer .fine{width:100%;margin-top:30px;padding-top:22px;border-top:1px solid va
 
    translateY here is in the rotated group's local space, so the bob is
    perpendicular to the direction of travel, which is what a hull actually does.
-   Amplitude decays 30 -> 24 -> 16 -> 9 -> 0 LOCAL units, which is roughly
-   8.7 -> 7 -> 4.6 -> 2.6 -> 0 on screen after the 0.55 group scale and the
-   viewBox fit. Specifying it in screen px gave a 2.6px bob: invisible. The last three keyframes are the
-   dock: nudge past the mooring, compress, settle. Then dead still. */
+   The vertical bob is REMOVED: at a visible amplitude it read as wiggling
+   rather than as swell. Travel plus the dock settle only. A light swish behind
+   each hull is being designed in the HyperFrames composition and will be ported
+   here once it is agreed. */
 @keyframes sp-sail{
-  0%,10% {transform:translateX(-1520px) translateY(0) scale(1,1);opacity:0}
-  28%    {transform:translateX(-940px) translateY(-30px) scale(1,1);opacity:.5}
-  44%    {transform:translateX(-520px) translateY(24px) scale(1,1);opacity:.88}
-  58%    {transform:translateX(-235px) translateY(-16px) scale(1,1);opacity:1}
-  70%    {transform:translateX(-70px) translateY(9px) scale(1,1);opacity:1}
-  81%    {transform:translateX(16px) translateY(0) scale(.93,1.06);opacity:1}
-  90%    {transform:translateX(4px) translateY(-7px) scale(1.025,.99);opacity:1}
-  100%   {transform:translateX(0) translateY(0) scale(1,1);opacity:1}
+  0%,10% {transform:translateX(-1520px) scale(1,1);opacity:0}
+  28%    {transform:translateX(-940px) scale(1,1);opacity:.5}
+  44%    {transform:translateX(-520px) scale(1,1);opacity:.88}
+  58%    {transform:translateX(-235px) scale(1,1);opacity:1}
+  70%    {transform:translateX(-70px) scale(1,1);opacity:1}
+  81%    {transform:translateX(16px) scale(.93,1.06);opacity:1}
+  90%    {transform:translateX(4px) scale(1.025,.99);opacity:1}
+  100%   {transform:translateX(0) scale(1,1);opacity:1}
 }
 
 /* The name simply appears. The wipe that used to uncover it read as a
