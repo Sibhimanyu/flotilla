@@ -322,13 +322,13 @@ footer .fine{width:100%;margin-top:30px;padding-top:22px;border-top:1px solid va
   display:grid;place-items:center;
   overflow:hidden;                      /* the overlay is the frame: nothing paints outside it */
   opacity:0;visibility:hidden;          /* fail-safe resting state */
-  animation:sp-life 1.5s linear forwards;
+  animation:sp-life 2s linear forwards;
 }
 .splash-art{width:min(560px,62vw);height:auto;overflow:visible}
 
 /* visible for the first ~77%, then fades out and stays gone */
 @keyframes sp-life{
-  0%,77%{opacity:1;visibility:visible}
+  0%,84%{opacity:1;visibility:visible}
   100%{opacity:0;visibility:hidden}
 }
 
@@ -336,35 +336,39 @@ footer .fine{width:100%;margin-top:30px;padding-top:22px;border-top:1px solid va
   fill:var(--teal);
   transform-box:fill-box;               /* origin resolves against the boat itself */
   transform-origin:100% 50%;            /* nose holds, body catches up */
-  animation:sp-fly .62s cubic-bezier(.22,.61,.36,1) backwards;
+  animation:sp-sail 1.15s cubic-bezier(.33,.06,.28,1) backwards;
 }
-/* travel -> squash at the landing -> rebound -> rest at exactly 0 and 1,1.
-   Note translateX here is in SVG USER units, so its pixel distance scales with
-   the art's rendered size -- at a wide viewport the start position is still
-   inside the frame. The opacity ramp is therefore the entry mechanism, not an
-   off-screen start: the boats materialise while already moving, which behaves
-   identically at every viewport width. */
-@keyframes sp-fly{
-  /* 0-12% is a guaranteed beat of nothing. Without it the fade starts at
-     t=0 and the very first painted frame can carry a ~2% ghost near the
-     left edge -- imperceptible, but "the first frame is empty" should be a
-     property, not a coincidence of paint timing. */
-  0%,12% {transform:translateX(-1520px) scale(1,1);opacity:0}
-  55%  {opacity:1}
-  62%  {transform:translateX(16px) scale(.93,1.06);opacity:1}
-  78%  {transform:translateX(4px) scale(1.025,.99)}
-  100% {transform:translateX(0) scale(1,1);opacity:1}
+/* Sailing, then docking. The brand forbids waves and wakes outright, so the
+   water is in the MOVEMENT rather than the artwork: each boat rises and falls as
+   it travels, and the bob decays to nothing as it moors. Buoyancy implies the
+   water; nothing is drawn.
+
+   translateY here is in the rotated group's local space, so the bob is
+   perpendicular to the direction of travel, which is what a hull actually does.
+   Amplitude decays 30 -> 24 -> 16 -> 9 -> 0 LOCAL units, which is roughly
+   8.7 -> 7 -> 4.6 -> 2.6 -> 0 on screen after the 0.55 group scale and the
+   viewBox fit. Specifying it in screen px gave a 2.6px bob: invisible. The last three keyframes are the
+   dock: nudge past the mooring, compress, settle. Then dead still. */
+@keyframes sp-sail{
+  0%,10% {transform:translateX(-1520px) translateY(0) scale(1,1);opacity:0}
+  28%    {transform:translateX(-940px) translateY(-30px) scale(1,1);opacity:.5}
+  44%    {transform:translateX(-520px) translateY(24px) scale(1,1);opacity:.88}
+  58%    {transform:translateX(-235px) translateY(-16px) scale(1,1);opacity:1}
+  70%    {transform:translateX(-70px) translateY(9px) scale(1,1);opacity:1}
+  81%    {transform:translateX(16px) translateY(0) scale(.93,1.06);opacity:1}
+  90%    {transform:translateX(4px) translateY(-7px) scale(1.025,.99);opacity:1}
+  100%   {transform:translateX(0) translateY(0) scale(1,1);opacity:1}
 }
 
-.sp-word{fill:var(--ink)}
-.sp-cover{
-  fill:var(--paper);
-  animation:sp-wipe .5s cubic-bezier(.33,1,.68,1) .42s both;
-}
-@keyframes sp-wipe{
-  from{transform:translateX(0)}
-  to{transform:translateX(860px)}
-}
+/* The name simply appears. The wipe that used to uncover it read as a
+   mechanical device sliding across the word; a slow fade lets the name resolve
+   instead. No movement either: the boats already carry the motion, and a
+   drifting wordmark on top of them fights for the same attention.
+
+   Long and gentle on purpose. ease-in-out starts imperceptibly, so it reads as
+   "appearing" rather than as an animation starting. */
+.sp-word{fill:var(--ink);opacity:0;animation:sp-appear .62s cubic-bezier(.4,0,.2,1) 1.06s forwards}
+@keyframes sp-appear{to{opacity:1}}
 
 /* Reduced motion: no splash at all. Not a faster splash -- none. */
 @media (prefers-reduced-motion:reduce){
