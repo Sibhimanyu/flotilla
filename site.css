@@ -66,8 +66,8 @@ section + section{border-top:1px solid var(--line)}
    made the headings read as fussy old-magazine rather than quiet editorial.
    This axis only exists because the font URL now requests SOFT and WONK; with
    the previous opsz,wght-only request this declaration was a silent no-op. */
-h1{font-family:var(--serif);font-weight:600;font-size:clamp(38px,5.6vw,60px);line-height:1.06;
-   letter-spacing:-.008em;font-variation-settings:'WONK' 0}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,7vw,86px);line-height:1.02;
+   letter-spacing:-.014em;font-variation-settings:'WONK' 0;text-wrap:balance}
 h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.2vw,34px);line-height:1.18;
    letter-spacing:-.010em;font-variation-settings:'WONK' 0}
 h3{font-family:var(--serif);font-weight:600;font-size:18.5px;line-height:1.3;
@@ -81,34 +81,36 @@ h4{font-family:var(--sans);font-weight:600;font-size:14.5px;letter-spacing:-.005
 .s-head h2 + .sub{margin-top:14px}
 strong{font-weight:600;color:var(--ink)}
 
-/* ---- hero ---- */
-.hero{padding:88px 0 80px}
-.hero .lead{margin-top:22px}
-.hero .btn-row{margin-top:32px}
-.hero .fine{margin-top:18px;font-size:13px;color:var(--muted)}
-.hero .fine code{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
-/* Two columns: the copy carries the claim, the illustration states it. The one-column hero
-   left the right third of the page empty at desktop width. */
-.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center}
-.hero-copy h1{font-size:clamp(36px,4.1vw,51px);max-width:17ch}
+/* ---- hero: centred, screenshot-led ----
+   Restructured after looking at devin.ai. The lesson worth taking was not its
+   typeface or its nav, it was this: the hero shows the REAL product, large,
+   bleeding off the bottom of the viewport, with almost no copy around it. An
+   abstract illustration cannot buy the credibility a real screenshot does.
 
-/* ---- hero illustration: the territory field ----
-   Deliberately NOT a diagram. The page already carries four of those below, so a
-   fifth flowchart in the hero gives the page no hierarchy and says nothing
-   specific to this product. This is a texture: one repository, three owners,
-   and the untouched gap between them. */
-.hero-illo svg{width:100%;height:auto;max-width:570px;margin-left:auto}
-@media (min-width:1200px){.hero-illo{margin-right:-86px}}
-.tf-lbl{font-family:var(--mono);font-size:14px;fill:var(--muted)}
-/* The hero cannot scroll the way the framed diagrams do, so its labels scale up
-   as the field shrinks. They are short enough (7-12 chars against 570 units)
-   that they still cannot collide at the largest step. */
-@media (max-width:900px){.tf-lbl{font-size:19px}}
-@media (max-width:640px){.tf-lbl{font-size:24px}}
-/* work landing right now. Reuses the board's own freshness pulse rather than
-   inventing a second idle motion for the page. */
-.tf-live{animation:pulse 2.6s infinite}
-@media (prefers-reduced-motion:reduce){.tf-live{animation:none}}
+   Deliberately NOT copied: their geometric sans (we have a serif wordmark to
+   match), their dropdown nav, and "Pricing" / "Customers" / "Contact sales" --
+   there is no pricing, no customer list and no sales team here, and inventing
+   that chrome is exactly what makes a page read as fake. */
+.hero{padding:86px 0 0;overflow:hidden}
+.hero-c{text-align:center;max-width:920px}
+.hero-c h1{margin:0 auto;max-width:22ch}
+.hero-def{font-size:19px;line-height:1.55;color:var(--ink2);margin:24px auto 0;max-width:60ch}
+.hero .btn-row{margin-top:32px;justify-content:center}
+.hero .fine{margin-top:18px;font-size:13px;color:var(--muted)}
+
+/* The screenshot. Fixed-height window with object-position:top, so the demo
+   board's empty lower half is never shown and the frame stays dense at every
+   width without re-cropping the asset. */
+.hero-shot{margin-top:60px;padding:0 28px}
+/* Clip the BOTTOM only, never the sides. object-fit:cover cropped ~99px off the
+   right and sliced the detail panel mid-word, because the frame's aspect was
+   narrower than the image's. Full-width image inside a max-height window cuts
+   only where the board is sparse anyway, and that cut is the bleed. */
+.shot-frame{max-width:1240px;margin:0 auto;max-height:min(50vh,470px);
+  background:var(--card);border:1px solid var(--line2);
+  border-radius:14px 14px 0 0;border-bottom:none;overflow:hidden;
+  box-shadow:0 24px 60px -28px rgba(26,25,23,.28)}
+.shot-frame img{width:100%;height:auto;display:block}
 
 /* ---- cards ---- */
 .grid{display:grid;gap:16px}
@@ -182,48 +184,13 @@ figcaption{font-size:12.5px;color:var(--muted);margin-top:10px}
 .verpill{font-family:var(--mono);font-size:10.5px;background:var(--teal-soft);color:var(--teal);
       border-radius:var(--r-tag);padding:2px 7px;font-weight:500;display:inline-block}
 
-/* ---- the miniature board (a still of the real thing) ---- */
-.boardframe{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
-      box-shadow:var(--shadow);overflow:hidden}
-.bf-nav{height:52px;border-bottom:1px solid var(--line);display:flex;align-items:center;
-      gap:12px;padding:0 16px}
-.bf-nav .mk{height:24px;width:auto}
-.bf-nav .proj{font-family:var(--serif);font-size:14.5px;font-weight:600;letter-spacing:-.015em}
-.bf-nav .repo{font-family:var(--mono);font-size:10.5px;color:var(--muted);background:var(--paper);
-      border:1px solid var(--line);border-radius:5px;padding:3px 7px}
-.bf-nav .fresh{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11.5px;
-      color:var(--muted)}
-.bf-nav .fresh .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);
-      animation:pulse 2.6s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.32}}
-.bf-board{display:flex;gap:11px;padding:18px 14px 20px;overflow-x:auto;background:var(--paper)}
-.bf-col{width:156px;flex:none;display:grid;gap:9px;align-content:start}
-.bf-colhead{display:flex;align-items:center;gap:7px;padding:0 2px 2px}
-.bf-colhead h3{font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:-.01em}
+/* The hand-built miniature board was removed: the page now shows real captures
+   of the product instead, in the hero and in the board section. Its .bf-* and
+   shared are kept where other sections still use them. */
+.row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .count{font-family:var(--mono);font-size:10.5px;color:var(--muted);background:var(--card);
       border:1px solid var(--line);border-radius:20px;padding:1px 7px}
-.bf-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px;
-      display:grid;gap:8px;box-shadow:var(--shadow)}
-.bf-card[data-sel="true"]{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-soft)}
-.bf-card[data-merged="true"]{opacity:.66}
-.bf-card .title{font-size:12.5px;font-weight:500;line-height:1.4}
-.row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.branch{font-family:var(--mono);font-size:10px;color:var(--muted);overflow:hidden;
-      text-overflow:ellipsis;white-space:nowrap}
-.bf-card .who{margin-left:auto;display:flex}
-.av{width:21px;height:21px;border-radius:50%;border:2px solid var(--card);margin-left:-6px;
-    display:grid;place-items:center;font-size:8.5px;font-weight:600;color:#fff;position:relative;
-    flex:none}
-.av:first-child{margin-left:0}
-.av::after{content:'';position:absolute;right:-1px;bottom:-1px;width:6.5px;height:6.5px;
-    border-radius:50%;border:2px solid var(--card);background:#3E9E4F}
-.av[data-ring="blocked"]::after{background:var(--red)}
-.av[data-ring="offline"]::after{background:#C4BFB6}
-.avs{display:flex;align-items:center}
-.empty{border:1.5px dashed var(--line2);border-radius:10px;padding:16px 12px;text-align:center;
-       color:var(--muted);font-size:11.5px;line-height:1.5}
-.empty b{display:block;color:var(--ink2);font-weight:500;font-size:12px;margin-bottom:2px}
-.empty code{font-size:10.5px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.32}}
 
 /* ---- callout ---- */
 .note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--teal);
@@ -294,21 +261,20 @@ footer .fine{width:100%;margin-top:30px;padding-top:22px;border-top:1px solid va
   .g4{grid-template-columns:repeat(2,1fr)}
   .g3{grid-template-columns:1fr 1fr}
   .split{grid-template-columns:1fr;gap:28px}
-  .hero-grid{grid-template-columns:1fr;gap:44px}
-  .hero-illo svg{margin:0 auto;max-width:440px}
-  .doc{grid-template-columns:1fr;gap:26px}
+      .doc{grid-template-columns:1fr;gap:26px}
   .toc{position:static;border:1px solid var(--line);background:var(--card);
        border-radius:var(--r-card);padding:16px 18px}
   .toc{grid-template-columns:repeat(2,1fr)}
   .toc .eyebrow{grid-column:1/-1}
 }
 @media (max-width:640px){
+  .shot-frame{max-height:min(40vh,260px);border-radius:10px 10px 0 0}
+  .hero-shot{margin-top:40px;padding:0 16px}
+
   body{font-size:15px}
   section{padding:56px 0}
   .hero{padding:60px 0 56px}
-  .hero-grid{gap:36px}
-  .hero-illo svg{max-width:340px}
-  .g2,.g3,.g4{grid-template-columns:1fr}
+      .g2,.g3,.g4{grid-template-columns:1fr}
   .wrap{padding:0 20px}
   .nav .links{gap:15px}
   .nav .links a.hide-sm,.nav .tag{display:none}
@@ -435,6 +401,14 @@ footer .fine{width:100%;margin-top:30px;padding-top:22px;border-top:1px solid va
    4.6px, which is not a diagram, it is a smudge. Hold a legible floor and let
    the figure scroll instead -- the same trade the wide tables already make. */
 .il-frame svg.il{min-width:720px}
+/* A real capture inside a figure frame. No min-width: a screenshot degrades
+   gracefully by scaling, unlike an SVG whose labels would shrink to a smudge. */
+.il-frame img.shot{width:100%;height:auto;display:block;border-radius:8px;
+      border:1px solid var(--line)}
+/* A UI detail rather than a page shot: the real board holds three tasks, so it
+   cannot evidence "six columns". It CAN evidence a locked file scope, so the
+   crop is that, at detail scale. */
+.il-frame img.shot-sm{max-width:560px;margin:0 auto}
 .il-cap{font-size:13px;color:var(--muted);margin-top:12px;max-width:62ch}
 
 /* One-shot draw-in. Illustrations are below the fold except the hero, so this
