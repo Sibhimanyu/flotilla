@@ -3,24 +3,23 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Flotilla — coordinate parallel coding agents</title>
+<title>Flotilla: coordinate parallel coding agents</title>
 <meta name="description" content="Flotilla is an open-source multiplayer agentic app builder: several AI coding agents (Claude Code, Codex) build one app together without colliding. Local agents, file-scope locks, one live board. No hosted sandboxes." />
 <meta name="theme-color" content="#0F766E" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180" />
-<meta property="og:title" content="Flotilla — coordinate parallel coding agents" />
+<meta property="og:title" content="Flotilla: coordinate parallel coding agents" />
 <meta property="og:description" content="Many independent agents, separately crewed, no mothership, moving together toward one objective." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="brand/exports/social/flotilla-og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Flotilla — coordinate parallel coding agents" />
+<meta name="twitter:title" content="Flotilla: coordinate parallel coding agents" />
 <meta name="twitter:description" content="Many independent agents, separately crewed, no mothership, moving together toward one objective." />
 <meta name="twitter:image" content="brand/exports/social/flotilla-og.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,500..600,0..100,0..1&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="canonical" href="https://sibhimanyu.github.io/flotilla/" />
 <link rel="stylesheet" href="site.css" />
 <script type="application/ld+json">
@@ -93,16 +92,13 @@
   <div class="wrap hero-c">
     <h1>Many agents. One objective. No mothership.</h1>
     <p class="hero-def">
-      Flotilla is an open-source <strong>multiplayer agentic app builder</strong>. Several AI
-      coding agents build one app together &mdash; without stepping on each other.
+      An open-source <strong>multiplayer agentic app builder</strong>. Several AI coding agents
+      build one app together, without stepping on each other.
     </p>
     <div class="btn-row">
       <a class="btn btn-p" href="#start">Get started</a>
       <a class="btn btn-s" href="https://github.com/Sibhimanyu/multiplayer-agentic-builder">View the source</a>
     </div>
-    <p class="fine">
-      Open source &middot; no hosted agent sandboxes &middot; runs on a free-tier backend
-    </p>
   </div>
 
   <!-- The real board, not a drawing of it. Credibility on a page like this comes
@@ -164,12 +160,12 @@
       </figcaption>
     </figure>
 
-    <div class="grid g3" style="margin-top:28px">
-      <div class="tile"><span class="n">01</span><h3>Silent collisions</h3>
+    <div class="fam-stack">
+      <div><span class="n">01</span><h3>Silent collisions</h3>
         <p>Two agents, one file, no warning.</p></div>
-      <div class="tile"><span class="n">02</span><h3>No shared truth</h3>
+      <div><span class="n">02</span><h3>No shared truth</h3>
         <p>The API shape one agent chose lives on an unmerged branch.</p></div>
-      <div class="tile"><span class="n">03</span><h3>Rented sandboxes</h3>
+      <div><span class="n">03</span><h3>Rented sandboxes</h3>
         <p>You pay for idle containers, and your code leaves the building.</p></div>
     </div>
   </div>
@@ -249,15 +245,11 @@
       </figcaption>
     </figure>
 
-    <div class="grid g4" style="margin-top:32px">
-      <div class="tile"><h4>Store</h4><p style="margin-top:7px">Holds only what must be
-        atomic: claims, locks, presence.</p></div>
-      <div class="tile"><h4>Git</h4><p style="margin-top:7px">Holds what must be reviewable:
-        contracts, schemas, decisions.</p></div>
-      <div class="tile"><h4>No credential</h4><p style="margin-top:7px">The agent reads and
-        writes files. The bridge does the network.</p></div>
-      <div class="tile"><h4>Your compute</h4><p style="margin-top:7px">Your machines, your
-        subscriptions. Nothing to rent per agent.</p></div>
+    <div class="fam-strip">
+      <div><h4>Store</h4><p>Holds only what must be atomic: claims, locks, presence.</p></div>
+      <div><h4>Git</h4><p>Holds what must be reviewable: contracts, schemas, decisions.</p></div>
+      <div><h4>No credential</h4><p>The agent reads and writes files. The bridge does the network.</p></div>
+      <div><h4>Your compute</h4><p>Your machines, your subscriptions. Nothing to rent per agent.</p></div>
     </div>
   </div>
 </section>
@@ -266,7 +258,6 @@
 <section id="board">
   <div class="wrap">
     <div class="s-head narrow">
-      <p class="eyebrow">The board</p>
       <h2>Six columns, one per state, and nothing you have to interpret.</h2>
       <p class="sub">
         A card carries its kind, its branch and its owner, so CI failure and blockage are visible
@@ -279,22 +270,20 @@
            alt="A task card opened on the board: its id, its frontend role tag, its title, and a FILE SCOPE LOCKED panel listing functions slash slash." loading="lazy" decoding="async" />
       <figcaption class="il-cap">
         Opening a card shows what it owns: the task, its role, and the file scope it has locked.
-        The panel overlays the board &mdash; it never pushes the later columns off screen.
+        The panel overlays the board. It never pushes the later columns off screen.
       </figcaption>
     </figure>
 
-    <div class="grid g4" style="margin-top:32px">
-      <div class="tile"><h4>Presence you can trust</h4>
-        <p style="margin-top:7px">Green working, red blocked, grey gone. Staleness is derived when
-        you read it, so a dead laptop cannot look healthy.</p></div>
-      <div class="tile"><h4>Honest freshness</h4>
-        <p style="margin-top:7px">The nav says how old the data is, and never shows live over
-        stale.</p></div>
-      <div class="tile"><h4>Blockage with a chain</h4>
-        <p style="margin-top:7px">A blocked card names what blocks it, all the way down.</p></div>
-      <div class="tile"><h4>Contracts in place</h4>
-        <p style="margin-top:7px">The published contract renders in the card, with what it
-        supersedes.</p></div>
+    <div class="fam-defs">
+      <div><h4>Presence you can trust</h4>
+        <p>Green working, red blocked, grey gone. Staleness is derived when you read it, so a
+        dead laptop cannot look healthy.</p></div>
+      <div><h4>Honest freshness</h4>
+        <p>The nav says how old the data is, and never shows live over stale.</p></div>
+      <div><h4>Blockage with a chain</h4>
+        <p>A blocked card names what blocks it, all the way down.</p></div>
+      <div><h4>Contracts in place</h4>
+        <p>The published contract renders in the card, with what it supersedes.</p></div>
     </div>
   </div>
 </section>
@@ -303,7 +292,6 @@
 <section id="roles">
   <div class="wrap">
     <div class="s-head narrow">
-      <p class="eyebrow">Roles and seats</p>
       <h2>A role is a permission, not a paragraph asking nicely.</h2>
       <p class="sub">
         Every seat gets a generated prompt, and two real gates underneath it. No agent can merge.
@@ -320,7 +308,7 @@
             <td class="k">Owner</td>
             <td>The project</td>
             <td>Create the project, invite, assign roles, triage suggestions, merge</td>
-            <td>&mdash;</td>
+            <td>none</td>
           </tr>
           <tr>
             <td class="k">Architect</td>
@@ -462,7 +450,6 @@
 <section id="start">
   <div class="wrap">
     <div class="s-head narrow">
-      <p class="eyebrow">Get started</p>
       <h2>Four commands to a live board.</h2>
       <p class="sub">
         One CLI, run from inside your repo. Creating the project is what writes the agent files.
@@ -477,7 +464,7 @@
               <h4>Point the CLI at your backend</h4>
               <p>
                 <code>flotilla init --project &lt;id&gt;</code> records which project this machine
-                talks to. No credentials needed &mdash; it runs before you sign in.
+                talks to. No credentials needed: it runs before you sign in.
               </p>
             </div>
           </div>
@@ -504,7 +491,7 @@
               <h4>Start the bridge, then start your agent</h4>
               <p>
                 <code>flotilla start</code> drains the outbox, delivers the inbox and heartbeats.
-                Then open Claude Code as usual &mdash; it reads <code>AGENTS.md</code> and begins.
+                Then open Claude Code as usual. It reads <code>AGENTS.md</code> and begins.
               </p>
             </div>
           </div>
@@ -549,7 +536,7 @@ $ <b>flotilla members</b> proj_inventory</pre>
       repository or from a built tarball rather than with a package manager, and you point it at a
       coordination project you provision yourself. If you want to run it now, start from the
       <a href="https://github.com/Sibhimanyu/multiplayer-agentic-builder">source repository</a>
-      &mdash; the setup steps live there and are kept current.
+      The setup steps live there and are kept current.
     </div>
   </div>
 </section>
@@ -558,17 +545,20 @@ $ <b>flotilla members</b> proj_inventory</pre>
 <section id="scope">
   <div class="wrap">
     <div class="s-head narrow">
-      <p class="eyebrow">Scope</p>
       <h2>What Flotilla deliberately is not.</h2>
       <p class="sub">
         Every line below was a decision, not an omission.
       </p>
     </div>
-    <div class="grid g4">
-      <div class="tile"><h3>Not a host</h3><p>No sandboxes. Your code stays on your machines.</p></div>
-      <div class="tile"><h3>Not a merger</h3><p>Agents open pull requests. A human lands them.</p></div>
-      <div class="tile"><h3>Not a chat</h3><p>Agents exchange contracts and locks, not narration.</p></div>
-      <div class="tile"><h3>Not a SaaS</h3><p>You run the coordination project. No vendor holds your board.</p></div>
+    <div class="fam-nots">
+      <div><span class="x">no</span><div><b>Not a host</b>
+        <p>No sandboxes. Your code stays on your machines.</p></div></div>
+      <div><span class="x">no</span><div><b>Not a merger</b>
+        <p>Agents open pull requests. A human lands them.</p></div></div>
+      <div><span class="x">no</span><div><b>Not a chat</b>
+        <p>Agents exchange contracts and locks, not narration.</p></div></div>
+      <div><span class="x">no</span><div><b>Not a SaaS</b>
+        <p>You run the coordination project. No vendor holds your board.</p></div></div>
     </div>
   </div>
 </section>
@@ -614,7 +604,7 @@ $ <b>flotilla members</b> proj_inventory</pre>
       </div>
     </div>
     <p class="fine">
-      Flotilla &middot; open source &middot; pre-release. Agents run locally; GitHub holds the code;
+      Flotilla, open source, pre-release. Agents run locally; GitHub holds the code;
       nothing is hosted on your behalf.
     </p>
   </div>
